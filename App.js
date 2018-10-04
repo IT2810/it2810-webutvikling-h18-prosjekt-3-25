@@ -1,16 +1,13 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import Contact from './components/Contact/Contact.js';
+// import Contact from './components/Contact/Contact.js';
+import ContactList from './components/ContactList/ContactList.js';
 
 export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Contact
-            name="Leif Ulvund"
-            number="45432377"
-            email="leif.ulvund@gmail.com"
-            ></Contact>
+        <ContactList />
       </View>
     );
   }
