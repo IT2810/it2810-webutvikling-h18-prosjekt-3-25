@@ -1,11 +1,16 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import Contact from './components/Contact/Contact.js';
 
 export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
+        <Contact
+            name="Leif Ulvund"
+            number="45432377"
+            email="leif.ulvund@gmail.com"
+            ></Contact>
       </View>
     );
   }
@@ -13,9 +18,8 @@ export default class App extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
+    paddingTop: 24,
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 });
