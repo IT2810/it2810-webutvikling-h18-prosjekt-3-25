@@ -1,11 +1,33 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import {Button, Text} from 'react-native-elements';
 
 export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
+        <Text h1>PIMM</Text>
+        <View style={styles.buttonContainer}>
+          <Button
+            buttonStyle={styles.butt}
+            containerStyle={{height: 1000}}
+            large
+            rounded
+            title="Avtaler"
+          />
+          <Button
+            buttonStyle={styles.butt}
+            large
+            rounded
+            title="Skritteller"
+          />
+          <Button
+            buttonStyle={styles.butt}
+            large
+            rounded
+            title="Kontakter"
+          />
+        </View>
       </View>
     );
   }
@@ -16,6 +38,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
+  },
+  butt: {
+    backgroundColor: '#4286f4',
+    width: '100%',
+    marginTop: 10,
   },
 });
