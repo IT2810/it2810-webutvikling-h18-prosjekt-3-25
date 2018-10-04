@@ -1,8 +1,15 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import {Button, Text} from 'react-native-elements';
+import { createStackNavigator } from 'react-navigation';
+import TodoScreen from './Components/Todo.js';
 
-export default class App extends React.Component {
+class HomeScreen extends React.Component {
+  static navigationOptions = {
+    title: 'Home',
+  };
+
+
   render() {
     return (
       <View style={styles.container}>
@@ -14,6 +21,13 @@ export default class App extends React.Component {
             large
             rounded
             title="Avtaler"
+          />
+          <Button
+            buttonStyle={styles.butt}
+            large
+            rounded
+            title="Todo"
+            onPress={() => this.props.navigation.navigate('Todo')}
           />
           <Button
             buttonStyle={styles.butt}
@@ -46,3 +60,29 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
 });
+
+const RootStack = createStackNavigator(
+  {
+    Home: HomeScreen,
+    Todo: TodoScreen,
+  },
+  {
+    initialRouteName: 'Home',
+    //Styling for all headers unless overridden
+    navigationOptions: {
+      headerStyle: {
+        backgroundColor: '#4286f4',
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+    },
+  }
+);
+
+export default class App extends React.Component {
+  render() {
+    return <RootStack />;
+  }
+}
