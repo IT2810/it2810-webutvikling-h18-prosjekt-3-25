@@ -5,7 +5,7 @@ import { Avatar, Icon } from 'react-native-elements';
 export default class ReducedContactForm extends React.Component {
     render() {
         return (
-            <TouchableNativeFeedback onPress={() => console.log("Add render call here")}>
+            <TouchableNativeFeedback onPress={() => this.props.navigation.navigate("ContactScreen")}>
                 <View style={styles.contactFormContainer}>
                     <Avatar
                         medium
