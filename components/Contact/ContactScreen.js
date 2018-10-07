@@ -1,8 +1,13 @@
 import React from 'react';
-import { StyleSheet, Text, View, SectionList } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { Avatar, Icon } from 'react-native-elements';
 
 export default class Contact extends React.Component {
+    //Her settes tittelen som brukes i navigasjonsbaren
+    static navigationOptions = {
+        title: "Contact",
+    }
+
     render() {
         return (
             <View style={styles.contact}>
@@ -11,34 +16,37 @@ export default class Contact extends React.Component {
                         <Icon
                             name="arrow-back"
                             color="white"
-                            onPress={() => console.log("Add render call here")}
-                            underlayColor="transparent"
                         />
                     </View>
+
                     <View style={styles.avatar}>
                         <Avatar
                             xlarge
-                            title={this.props.name.split(" ").map(x => x[0]).join("")}
+                            title={this.props.navigation.getParam("name").split(" ").map(x => x[0]).join("")}
                             overlayContainerStyle={{backgroundColor: "#abcccc"}}
                         />
                     </View>
                     <View style={styles.picturePadding}>
                         {/*This is needed to be able to center the avatar*/}
                     </View>
+
                 </View>
                 <View style={styles.texts}>
+
+                    {/* this.props.navigation.getParam() tilsvarer this.props. uten bruk av navigasjonsbiblioteket */}
                     <View style={styles.infoLine}>
                         <Icon name="person"/>
-                        <Text style={styles.text}>{this.props.name}</Text>
+                        <Text style={styles.text}>{this.props.navigation.getParam("name")}</Text>
                     </View>
                     <View style={styles.infoLine}>
                         <Icon name="phone" />
-                        <Text style={styles.text}>{this.props.number}</Text>
+                        <Text style={styles.text}>{this.props.navigation.getParam("number")}</Text>
                     </View>
                     <View style={styles.infoLine}>
                         <Icon name="email" />
-                        <Text style={styles.text}>{this.props.email}</Text>
+                        <Text style={styles.text}>{this.props.navigation.getParam("email")}</Text>
                     </View>
+
                 </View>
             </View>
         );
