@@ -1,17 +1,39 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import Contact from './components/Contact/Contact.js';
+import ContactScreen from './components/Contact/ContactScreen.js';
+import ContactListScreen from './components/ContactList/ContactListScreen.js';
+import CreateContactScreen from './components/Contact/CreateContactScreen.js';
+import { createStackNavigator } from 'react-navigation';
+
+const RootStack = createStackNavigator(
+  {
+    ContactList: ContactListScreen,
+    CreateContact: CreateContactScreen,
+    Contact: ContactScreen,
+  },
+  {
+    initialRouteName: 'ContactList',
+    //Styling for all headers unless overridden
+    navigationOptions: {
+      headerStyle: {
+        backgroundColor: '#4286f4',
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+    },
+  }
+);
+
 
 export default class App extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Contact
-            name="Leif Ulvund"
-            number="45432377"
-            email="leif.ulvund@gmail.com"
-            ></Contact>
-      </View>
+      // <View style={styles.container}>
+      //   <ContactList />
+      // </View>
+      <RootStack />
     );
   }
 }
