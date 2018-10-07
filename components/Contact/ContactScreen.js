@@ -12,41 +12,24 @@ export default class Contact extends React.Component {
         return (
             <View style={styles.contact}>
                 <View style={styles.picture}>
-                    <View style={styles.backButton}>
-                        <Icon
-                            name="arrow-back"
-                            color="white"
-                        />
-                    </View>
-
-                    <View style={styles.avatar}>
-                        <Avatar
-                            xlarge
-                            title={this.props.navigation.getParam("name").split(" ").map(x => x[0]).join("")}
-                            overlayContainerStyle={{backgroundColor: "#abcccc"}}
-                        />
-                    </View>
-                    <View style={styles.picturePadding}>
-                        {/*This is needed to be able to center the avatar*/}
-                    </View>
-
+                    <Avatar
+                        xlarge
+                        title={this.props.navigation.getParam("name").split(" ").map(x => x[0]).join("")}
+                        overlayContainerStyle={{backgroundColor: "#abcccc"}}
+                    />
                 </View>
-                <View style={styles.texts}>
-
-                    {/* this.props.navigation.getParam() tilsvarer this.props. uten bruk av navigasjonsbiblioteket */}
-                    <View style={styles.infoLine}>
-                        <Icon name="person"/>
-                        <Text style={styles.text}>{this.props.navigation.getParam("name")}</Text>
-                    </View>
-                    <View style={styles.infoLine}>
-                        <Icon name="phone" />
-                        <Text style={styles.text}>{this.props.navigation.getParam("number")}</Text>
-                    </View>
-                    <View style={styles.infoLine}>
-                        <Icon name="email" />
-                        <Text style={styles.text}>{this.props.navigation.getParam("email")}</Text>
-                    </View>
-
+                {/* this.props.navigation.getParam() tilsvarer this.props. uten bruk av navigasjonsbiblioteket */}
+                <View style={styles.infoLine}>
+                    <Icon name="person"/>
+                    <Text style={styles.text}>{this.props.navigation.getParam("name")}</Text>
+                </View>
+                <View style={styles.infoLine}>
+                    <Icon name="phone" />
+                    <Text style={styles.text}>{this.props.navigation.getParam("number")}</Text>
+                </View>
+                <View style={styles.infoLine}>
+                    <Icon name="email" />
+                    <Text style={styles.text}>{this.props.navigation.getParam("email")}</Text>
                 </View>
             </View>
         );
@@ -55,32 +38,9 @@ export default class Contact extends React.Component {
 
 const styles = StyleSheet.create({
 
-    contact: {
-        flex: 1,
-    },
-
     picture: {
         backgroundColor: "#abcccc",
-        flex: 1,
-        flexDirection: "row",
-    },
-
-    backButton: {
-        flex: 1,
-        alignItems: "flex-start",
-    },
-
-    avatar: {
         alignItems: "center",
-        justifyContent: "center",
-    },
-
-    picturePadding: {
-        flex: 1,
-    },
-
-    texts: {
-        flex: 2,
     },
 
     infoLine: {
