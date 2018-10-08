@@ -5,10 +5,10 @@ import { createStackNavigator } from 'react-navigation';
 import TodoScreen from './Components/Todo.js';
 
 class HomeScreen extends React.Component {
+  //Sets the title for HomeScreen
   static navigationOptions = {
     title: 'Home',
   };
-
 
   render() {
     return (
@@ -17,7 +17,6 @@ class HomeScreen extends React.Component {
         <View style={styles.buttonContainer}>
           <Button
             buttonStyle={styles.butt}
-            containerStyle={{height: 1000}}
             large
             rounded
             title="Avtaler"
