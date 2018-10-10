@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, KeyboardAvoidingView } from 'react-native';
 import { Icon, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
 
 export default class CreateContact extends React.Component {
@@ -40,7 +40,7 @@ export default class CreateContact extends React.Component {
 
     render() {
         return (
-            <View style={styles.createContactContainer}>
+            <KeyboardAvoidingView style={styles.createContactContainer} behaivor="padding" >
                 <View style={styles.icon}>
                     <Icon
                         name="person-add"
@@ -59,7 +59,7 @@ export default class CreateContact extends React.Component {
                     <FormLabel>Email</FormLabel>
                     <FormInput onChangeText={(text) => this.setState(state => ({email: text}))} keyboardType="email-address"/>
                 </View>
-            </View>
+            </KeyboardAvoidingView>
         );
     }
 }
