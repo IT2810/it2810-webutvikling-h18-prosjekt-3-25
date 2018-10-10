@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableNativeFeedback } from 'react-native';
+import { StyleSheet, Text, View, TouchableHighlight } from 'react-native';
 import { Avatar, Icon } from 'react-native-elements';
 
 export default class ReducedContactForm extends React.Component {
@@ -7,7 +7,7 @@ export default class ReducedContactForm extends React.Component {
         return (
             //TouchableNativeFeedback gjør elementet trykkbart og lager effekten
             //man ser når man trykker på det
-            <TouchableNativeFeedback onPress={this.props.onPress}>
+            <TouchableHighlight onPress={this.props.onPress}>
                 <View style={styles.contactFormContainer}>
                     <Avatar
                         medium
@@ -18,7 +18,7 @@ export default class ReducedContactForm extends React.Component {
                         <Text style={styles.text}>{this.props.name}</Text>
                     </View>
                 </View>
-            </TouchableNativeFeedback>
+            </TouchableHighlight>
         );
     }
 }
