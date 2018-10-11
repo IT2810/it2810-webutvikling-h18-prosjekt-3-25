@@ -3,6 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import {Button, Text} from 'react-native-elements';
 import { createStackNavigator } from 'react-navigation';
 import TodoScreen from './Components/Todo.js';
+import StepCounter from './Components/StepCounter.js';
 
 class HomeScreen extends React.Component {
   //Sets the title for HomeScreen
@@ -33,6 +34,7 @@ class HomeScreen extends React.Component {
             large
             rounded
             title="Skritteller"
+            onPress={() => this.props.navigation.navigate('Skritteller')}
           />
           <Button
             buttonStyle={styles.butt}
@@ -64,6 +66,7 @@ const RootStack = createStackNavigator(
   {
     Home: HomeScreen,
     Todo: TodoScreen,
+    Skritteller: StepCounter,
   },
   {
     initialRouteName: 'Home',
