@@ -1,26 +1,45 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button} from 'react-native';
-import Appointment from './components/Appointment.js';
+import { StyleSheet, Text, View } from 'react-native';
+import AppointmentListScreen from './components/AppointmentListScreen.js';
+import AppointmentScreen from './components/AppointmentScreen.js';
+import CreateAppointmentScreen from './components/CreateAppointmentScreen.js';
+import { createStackNavigator } from 'react-navigation';
+
+const RootStack = createStackNavigator(
+  {
+    AppointmentList: AppointmentListScreen,
+    CreateAppointment: CreateAppointmentScreen,
+    Appointment: AppointmentScreen,
+  },
+  {
+    initialRouteName: 'AppointmentList',
+    //Styling for all headers unless overridden
+    navigationOptions: {
+      headerStyle: {
+        backgroundColor: '#4286f4',
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+    },
+  }
+);
+
 
 export default class App extends React.Component {
-	render() {
-		return (
-			<View style={styles.container}>
-				<Appointment 
-					header="jobbintervju"
-					date="2018-10-10"
-					description="Jobbintervju hos zedge, blir sykt fet ass">
-				</Appointment>
-			</View>
-		);
-	}
+  render() {
+    return (
+    	//Rootstack for "scener"
+      <RootStack />
+    );
+  }
 }
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: '#fff',
-		alignItems: 'center',
-		justifyContent: 'center',
-	},
+  container: {
+    paddingTop: 24,
+    flex: 1,
+    backgroundColor: '#fff',
+  },
 });
