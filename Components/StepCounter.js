@@ -1,21 +1,22 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { Pedometer } from "expo";
+import {Button, Text, Slider} from 'react-native-elements';
 
 export default class StepCounter extends React.Component {
 
   static navigationOptions = {
     title: 'Skritteller',
   };
-  //Koden for å få skrittelleren å fungere er hentet fra:
+  //Skjelett-koden for å få skrittelleren til å fungere er hentet fra:
   //https://docs.expo.io/versions/v30.0.0/sdk/pedometer
-  //Og er kun modifisert i mindre grad for vår bruk
+  //Og er kun modifisert i noen grad for vår bruk
   constructor(props) {
     super(props);
     this.state = {
       isPedometerAvailable: "checking",
       pastStepCount: 0,
-      currentStepCount: 0
+      currentStepCount: 0,
     };
   }
 
@@ -42,6 +43,7 @@ export default class StepCounter extends React.Component {
         });
       },
       error => {
+        console.log(error);
         this.setState({
           isPedometerAvailable: "Could not get isPedometerAvailable: " + error
         });
@@ -56,6 +58,7 @@ export default class StepCounter extends React.Component {
         this.setState({ pastStepCount: result.steps });
       },
       error => {
+        console.log(error);
         this.setState({
           pastStepCount: "Could not get stepCount: " + error
         });
@@ -68,17 +71,52 @@ export default class StepCounter extends React.Component {
     this._subscription = null;
   };
 
+  //Helper method for transforming steps into a rating between 0 and 5
+  stepsToRating = () => {
+    let rating = (this.state.pastStepCount+this.state.currentStepCount)/2000;
+    if (rating > 5) {
+      return 5;
+    }
+    else if (rating > 0) {
+      return rating;
+    }
+  }
+
+  //Helper method for displaying daily step stepCount or potential error message
+  getText = () => {
+    if (this.state.pastStepCount === 0) {
+      return "Can't reach the pedometer, please refresh the page";
+    }
+    else {
+      let steps = this.state.pastStepCount + this.state.currentStepCount;
+      return "Steg de siste 24 timene: " + steps;
+    }
+  }
   render() {
     return (
-      <View>
-        <Text>
-          Pedometer.isAvailableAsync(): {this.state.isPedometerAvailable}
-        </Text>
-        <Text>
-          Steps taken in the last 24 hours: {this.state.pastStepCount}
-        </Text>
-        <Text>Walk! And watch this go up: {this.state.currentStepCount}</Text>
+      <View style={styles.container}>
+        <Text h3 style={styles.text}>Dagens mål:</Text>
+        <Slider
+          style={styles.slider}
+          value={this.stepsToRating()}
+          maximumValue={5}
+          disabled
+        />
+        <Text style={styles.text}>{this.getText()}</Text>
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+
+  },
+  slider: {
+    width: '80%',
+    alignSelf: 'center'
+  },
+  text: {
+    alignSelf: 'center'
+  }
+});
