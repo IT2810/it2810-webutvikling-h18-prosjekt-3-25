@@ -2,7 +2,6 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Icon, FormLabel, FormInput, FormValidationMessage, Button } from 'react-native-elements';
 import DateTimePicker from 'react-native-modal-datetime-picker';
-//fra node-modules
 import moment from 'moment';
 
 export default class CreateAppointmentScreen extends React.Component {
@@ -36,6 +35,7 @@ export default class CreateAppointmentScreen extends React.Component {
 	//setter state til date ut ifra valgt datetime i datetime-picker
 	handleDatePicked(datetime) {
 		this.setState({date: moment(datetime).format('Do MMMM YYYY, HH:mm')});
+		this.hideDateTimePicker();
 		console.log(datetime);
 	}
 
@@ -62,7 +62,6 @@ export default class CreateAppointmentScreen extends React.Component {
 		}
 		else {
 			alert("Cannot create an appointment without a title");
-			console.log("Cannot create an empty appointment");
 		}
 	}
 
@@ -76,13 +75,17 @@ export default class CreateAppointmentScreen extends React.Component {
 
 					<FormLabel>Description</FormLabel>
 					<FormInput onChangeText={(text) => this.setState(state => ({description: text}))}/>
-
+					
 					<View style={styles.button}>
 						<Button
 							title="Select Date"
 							backgroundColor="#51afaa"
 							onPress={this.showDateTimePicker}
 						/>
+					</View>
+
+					<View style={styles.text}>
+						<Text style={{color: '#51afaa'}}> Selected Datetime: {this.state.date} </Text>
 					</View>
 				</View>
 
@@ -110,7 +113,7 @@ const styles = StyleSheet.create({
 	createAppointmentContainer: {
 		flex: 1,
 		alignItems: 'center',
-		justifyContent: 'center'
+		justifyContent: 'center',
 	},
 
 	createAppointmentList: {
@@ -124,5 +127,10 @@ const styles = StyleSheet.create({
 
 	button: {
 		paddingTop: 10,
-	}
+	},
+
+	text: {
+		alignItems: 'center',
+		paddingTop: 10,
+	},
 });
