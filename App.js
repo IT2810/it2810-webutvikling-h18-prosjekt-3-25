@@ -1,9 +1,12 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import {Button, Text} from 'react-native-elements';
-import { createStackNavigator } from 'react-navigation';
+import ContactScreen from './components/Contact/ContactScreen.js';
+import ContactListScreen from './components/ContactList/ContactListScreen.js';
+import CreateContactScreen from './components/Contact/CreateContactScreen.js';
 import TodoScreen from './Components/Todo.js';
 import StepCounter from './Components/StepCounter.js';
+import { createStackNavigator } from 'react-navigation';
 
 class HomeScreen extends React.Component {
   //Sets the title for HomeScreen
@@ -50,6 +53,7 @@ class HomeScreen extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
+    paddingTop: 24,
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
@@ -67,9 +71,12 @@ const RootStack = createStackNavigator(
     Home: HomeScreen,
     Todo: TodoScreen,
     Skritteller: StepCounter,
+    ContactList: ContactListScreen,
+    CreateContact: CreateContactScreen,
+    Contact: ContactScreen,
   },
   {
-    initialRouteName: 'Home',
+    initialRouteName: 'ContactList',
     //Styling for all headers unless overridden
     navigationOptions: {
       headerStyle: {
