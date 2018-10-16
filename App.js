@@ -1,11 +1,11 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import {Button, Text} from 'react-native-elements';
 import ContactScreen from './components/Contact/ContactScreen.js';
 import ContactListScreen from './components/ContactList/ContactListScreen.js';
 import CreateContactScreen from './components/Contact/CreateContactScreen.js';
-import TodoScreen from './Components/Todo.js';
-import StepCounter from './Components/StepCounter.js';
+import TodoScreen from './components/Todo.js';
+import StepCounter from './components/StepCounter.js';
 import { createStackNavigator } from 'react-navigation';
 
 class HomeScreen extends React.Component {
@@ -44,6 +44,7 @@ class HomeScreen extends React.Component {
             large
             rounded
             title="Kontakter"
+            onPress={() => this.props.navigation.navigate('ContactList')}
           />
         </View>
       </View>
@@ -76,7 +77,7 @@ const RootStack = createStackNavigator(
     Contact: ContactScreen,
   },
   {
-    initialRouteName: 'ContactList',
+    initialRouteName: 'Home',
     //Styling for all headers unless overridden
     navigationOptions: {
       headerStyle: {
