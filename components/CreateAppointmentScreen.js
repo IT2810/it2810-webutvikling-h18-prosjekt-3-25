@@ -42,7 +42,7 @@ export default class CreateAppointmentScreen extends React.Component {
 	//Lager et kontakt-objekt ut fra informasjonen som er lagret i state
 	//Setter så state til opprinnelig form igjen, for så å navigere til kontaklisten
 	handleOnPress() {
-		if (this.state.header!=""){
+		if (this.state.header!="" && this.state.date!=""){
 
 
 			const appointment = {
@@ -61,7 +61,7 @@ export default class CreateAppointmentScreen extends React.Component {
 			this.props.navigation.goBack();
 		}
 		else {
-			alert("Cannot create an appointment without a title");
+			alert("Cannot create an appointment without a title AND a date");
 		}
 	}
 

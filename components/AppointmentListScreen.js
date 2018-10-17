@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, FlatList, AsyncStorage } from 'react-native';
-import { Icon, Button } from 'react-native-elements';
-import ReducedAppointment from './ReducedAppointment.js';
+import { Icon, CheckBox, } from 'react-native-elements';
 
 export default class AppointmentListScreen extends React.Component {
 	//tittel til navigasjonsbaren
@@ -15,7 +14,7 @@ export default class AppointmentListScreen extends React.Component {
 		this.state = {
 			appointments: this.retrieveData(),
 		};
-		this.clearOnPress = this.clearOnPress.bind(this);
+		this.removeOnPress = this.removeOnPress.bind(this);
 		this.handleOnPress = this.handleOnPress.bind(this);
 	}
 
@@ -47,23 +46,28 @@ export default class AppointmentListScreen extends React.Component {
 		}
 	}
 
-	//fjerner data fra AsyncStorage
-	async clearData() {
-		try {
-			await AsyncStorage.removeItem("APPOINTMENTS");
-		}
-		catch(error) {
-			console.log(error);
-		}
+	//fjerner valgt appointment, oppdaterer state og asyncstorage til ny liste appointments
+	//en appointment kan ikke vare på samme dato og tidspunkt er en forutsetning for denne losningen
+	async removeData(key) {
+		let stateClone = this.state.appointments;
+		//stateClone.splice(key, 0);
+		let alteredState = stateClone.filter(function(e) {
+			return e.date !== key
+		}) 
+		this.storeData(alteredState);
+		this.setState(state => ({
+			appointments: alteredState,
+		}))
 	}
 
-	//Håndterer fjerning av data fra AsyncStorage og FlatList
-	clearOnPress() {
-		this.clearData();
+	//Handterer fjerning av data fra AsyncStorage og FlatList
+	removeOnPress(keyex) {
+		this.state.date
+		this.removeData(keyex);
 		this.retrieveData();
 	}
 
-	//Håndterer logikk for opprettingen av nye appointments
+	//Handterer logikk for opprettingen av nye appointments
 	handleOnPress(appointment) {
 		let stateClone = [...this.state.appointments, appointment];
 
@@ -78,18 +82,24 @@ export default class AppointmentListScreen extends React.Component {
 			<View style={styles.appointmentListContainer}>
 				
 				<View style= {styles.listContainer}>
-					<Text style={styles.title} >Appointments, Reminders and Events</Text>
+					<Text style={styles.title} >Appointments and Events</Text>
 					<FlatList
 						data={this.state.appointments}
 						keyExtractor={(item, index) => item.date}
-						renderItem={({item}) => <ReducedAppointment header={item.header} onPress={() => this.props.navigation.navigate("Appointment", {header: item.header, date: item.date, description: item.description })}/>}
+						renderItem={({item}) => 
+							<CheckBox title={item.header}  onPress={() => this.props.navigation.navigate("Appointment", {header: item.header, date: item.date, description: item.description })}
+							iconRight
+							iconType="material"
+							uncheckedIcon="clear"
+							uncheckedColor="red"
+							size={30}
+							//fant ikke en bedre mate enn inline css for ønsket visualisering
+							containerStyle={{ alignItems: 'flex-end' }}
+      				textStyle={{ flex: 1, flexDirection: 'column', alignSelf: 'center', fontSize: 20 }}
+							onIconPress={() => this.removeOnPress(item.date)}
+							/>
+						}
 					/>
-					<View style={styles.clearButton}>
-						<Button
-							title="Clear All"
-							onPress={this.clearOnPress}
-						/>
-					</View>
 				</View>
 				<View style={styles.addAppointment}>
 					<Icon
