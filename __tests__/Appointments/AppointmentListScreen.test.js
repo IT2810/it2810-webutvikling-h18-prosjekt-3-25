@@ -5,5 +5,5 @@ import ShallowRenderer from 'react-test-renderer/shallow';
 
 it("renders correctly", () => {
     const tree = renderer.create(<CreateAppointment />).toJSON();
-    expect(tree).toMatchSnapshot();
+    expect(tree).toMatchSnapshot() ;
 })
