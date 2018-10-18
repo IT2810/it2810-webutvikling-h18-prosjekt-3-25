@@ -8,13 +8,13 @@ import ShallowRenderer from 'react-test-renderer/shallow';
 // navigation.setParam("name")="Test Person";
 // jest.mock("react-navigation", () => {});
 
-it("faen", () => {
-    const renderer = new ShallowRenderer();
-    renderer.render(<Contact />);
-    const result = renderer.getRenderOutput();
-    console.log(result);
-
-})
+// it("renders correctly", () => {
+//     const renderer = new ShallowRenderer();
+//     renderer.render(<Contact />);
+//     const result = renderer.getRenderOutput();
+//     console.log(result);
+//
+// })
 
 //Na testen her kan ferra te helvete :)
 // it("renders correctly", () => {

@@ -13,6 +13,8 @@ export default class ContactList extends React.Component {
     constructor(props) {
         super(props);
 
+        // const data = this.retrieveData();
+
         this.state = {
             contacts: this.retrieveData(),
         };
@@ -28,15 +30,15 @@ export default class ContactList extends React.Component {
             const value = await AsyncStorage.getItem("CONTACTS");
             if (value !== undefined) {
                 const parsedValue = JSON.parse(value);
-                // this.setState(state => ({contacts: parsedValue}));
+                this.setState(state => ({contacts: parsedValue}));
                 return parsedValue;
             } else {
-                // this.setState(state => ({contacts: []}));
+                this.setState(state => ({contacts: []}));
                 return [];
             }
         } catch(error) {
-            // console.log(error);
-            // return []
+            console.log(error);
+            return []
         }
     }
 

@@ -37,7 +37,6 @@ it('StoreData works correctly with one contact', () => {
     return componentInstance.storeData(contact).then(() => {
         return AsyncStorage.getItem("CONTACTS").then(data => {
             expect(data).toBe(JSON.stringify(contact));
-            // expect(mock.AsyncStorage.setItem.calls.length).toBe(1);
         })
     })
 });
@@ -59,7 +58,7 @@ it('RetrieveData works correctly with no contacts', () => {
 })
 
 
-
+// Dette er forsøk på testing som ikke førte frem. De vises her for dokumentasjon.
 /* ********************************************************************************** */
 // const renderer = new ShallowRenderer();
 // renderer.render(<ContactList />);
