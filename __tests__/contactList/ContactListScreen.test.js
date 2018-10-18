@@ -10,6 +10,52 @@ import ShallowRenderer from 'react-test-renderer/shallow';
 // console.log(result.props.children);
 // console.log(result.type);
 
+// jest.mock('react-native', () => {
+//     AsyncStorage: {
+//         setItem: jest.fn(() => {
+//             return new Promise((resolve, reject) => {
+//                 resolve(null);
+//             })
+//         })
+//
+//         getItem: jest.fn(() => {
+//             return new Promise((resolve, reject) => {
+//                 resolve({
+//                     name: "Test Person",
+//                     number: "12345678",
+//                     email: "email@email.com",
+//                 });
+//             })
+//         })
+//     }
+// })
+//
+// jest.mock('../../components/ContactList/ContactListScreen.js', () => {
+//     ContactList: {
+//         retrieveData: jest.fn(() => {
+//             return {
+//                 name: "Test Person",
+//                 number: "12345678",
+//                 email: "email@email.com",
+//             }
+//         })
+//
+//         storeData: jest.fn(() => {
+//             return new Promise((resolve, reject) => {
+//                 resolve(null);
+//             })
+//         })
+//     }
+// })
+
+const contact = {
+    name: "Test Person",
+    number: "12345678",
+    email: "email@email.com",
+};
+
+jest.mock('../../components/ContactList/ContactListScreen.js');
+
 //Before all
 const renderedComponent = renderer.create(<ContactList />);
 const componentInstance = renderedComponent.getInstance()
@@ -19,32 +65,25 @@ it('renders correctly', () => {
     expect(tree).toMatchSnapshot();
 });
 
-it("handleOnPress works correctly", async () => {
-    const contact = {
-        name: "Test Person",
-        number: "12345678",
-        email: "email@email.com",
-    };
-    // const stateContacts = contactListInstance.state.contacts;
-    // console.log(contactListInstance);
-    // console.log("før: " + contactListInstance.state.contacts);
-    // contactListInstance.retrieveData();
-    // console.log("etter: " + contactListInstance.state.contacts[0].name);
-
-    expect(componentInstance.state.contacts).toEqual([]);
-    await componentInstance.handleOnPress(contact);
-    console.log("etter state: " + componentInstance.state.contacts);
-    // expect(componentInstance.state.contacts).toEqual([]);
-})
+// it("handleOnPress works correctly", async () => {
+    // const contact = {
+    //     name: "Test Person",
+    //     number: "12345678",
+    //     email: "email@email.com",
+    // };
+//
+//     expect(componentInstance.state.contacts).toEqual([]);
+//     await componentInstance.handleOnPress(contact);
+//     console.log("etter state: " + componentInstance.state.contacts);
+// })
 
 
 it('retrieveData works correctly with no contacts', () => {
+    const result = componentInstance.retrieveData().mockResolvedValue(contact);
     expect.assertions(2);
-    // console.log(renderedComponent.getInstance());
     return componentInstance.retrieveData().then(data => {
-        // console.log("state con: " + renderedComponent.getInstance().state.contacts)
-        expect(componentInstance.state.contacts).toEqual([]);
-        expect(data).toEqual([]);
+        // expect(componentInstance.state.contacts).toEqual([]);
+        expect(data).toEqual(contact);
     })
 });
 
