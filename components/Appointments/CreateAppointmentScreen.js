@@ -36,7 +36,6 @@ export default class CreateAppointmentScreen extends React.Component {
 	handleDatePicked(datetime) {
 		this.setState({date: moment(datetime).format('Do MMMM YYYY, HH:mm')});
 		this.hideDateTimePicker();
-		console.log(datetime);
 	}
 
 	//Lager et kontakt-objekt ut fra informasjonen som er lagret i state
