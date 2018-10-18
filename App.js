@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import AppointmentListScreen from './components/AppointmentListScreen.js';
-import AppointmentScreen from './components/AppointmentScreen.js';
-import CreateAppointmentScreen from './components/CreateAppointmentScreen.js';
+import AppointmentListScreen from './components/Appointments/AppointmentListScreen.js';
+import AppointmentScreen from './components/Appointments/AppointmentScreen.js';
+import CreateAppointmentScreen from './components/Appointments/CreateAppointmentScreen.js';
 import { createStackNavigator } from 'react-navigation';
 
 const RootStack = createStackNavigator(
