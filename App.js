@@ -4,6 +4,9 @@ import {Button, Text} from 'react-native-elements';
 import ContactScreen from './components/Contact/ContactScreen.js';
 import ContactListScreen from './components/ContactList/ContactListScreen.js';
 import CreateContactScreen from './components/Contact/CreateContactScreen.js';
+import AppointmentListScreen from './components/Appointments/AppointmentListScreen.js';
+import AppointmentScreen from './components/Appointments/AppointmentScreen.js';
+import CreateAppointmentScreen from './components/Appointments/CreateAppointmentScreen.js';
 import TodoScreen from './components/Todo.js';
 import StepCounter from './components/StepCounter.js';
 import { createStackNavigator } from 'react-navigation';
@@ -24,6 +27,7 @@ class HomeScreen extends React.Component {
             large
             rounded
             title="Avtaler"
+            onPress={() => this.props.navigation.navigate('AppointmentList')}
           />
           <Button
             buttonStyle={styles.butt}
@@ -75,6 +79,9 @@ const RootStack = createStackNavigator(
     ContactList: ContactListScreen,
     CreateContact: CreateContactScreen,
     Contact: ContactScreen,
+    AppointmentList: AppointmentListScreen,
+    CreateAppointment: CreateAppointmentScreen,
+    Appointment: AppointmentScreen,
   },
   {
     initialRouteName: 'Home',
