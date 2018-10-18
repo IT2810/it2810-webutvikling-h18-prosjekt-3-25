@@ -105,7 +105,7 @@ export default class AppointmentListScreen extends React.Component {
 					<Icon
 						name="add"
 						reverse={true}
-						color="#517fa4"
+						color="#4286f4"
 						size={50}
 						onPress={() => this.props.navigation.navigate("CreateAppointment", {onPress: this.handleOnPress})}
 					/>

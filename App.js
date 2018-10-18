@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import {Button, Text} from 'react-native-elements';
+//Imports for navigation
 import ContactScreen from './components/Contact/ContactScreen.js';
 import ContactListScreen from './components/ContactList/ContactListScreen.js';
 import CreateContactScreen from './components/Contact/CreateContactScreen.js';
@@ -60,7 +61,6 @@ const styles = StyleSheet.create({
   container: {
     paddingTop: 24,
     flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'space-around',
   },
