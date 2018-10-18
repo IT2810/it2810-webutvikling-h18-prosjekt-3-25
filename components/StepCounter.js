@@ -32,7 +32,6 @@ export default class StepCounter extends React.Component {
       console.log(error.message);
     }
     if (newStepGoal !== 'none') {
-      console.log(newStepGoal);
       newStepGoal = parseInt(newStepGoal);
       this.setState({stepGoal: newStepGoal});
     }
@@ -176,7 +175,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
   butt: {
-    backgroundColor: '#4286f4',
-    width: '100%'
+    backgroundColor: '#4286f4'
   }
 });

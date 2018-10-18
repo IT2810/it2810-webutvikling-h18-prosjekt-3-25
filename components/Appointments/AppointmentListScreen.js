@@ -50,7 +50,6 @@ export default class AppointmentListScreen extends React.Component {
 	//en appointment kan ikke vare på samme dato og tidspunkt er en forutsetning for denne losningen
 	async removeData(key) {
 		let stateClone = this.state.appointments;
-		//stateClone.splice(key, 0);
 		let alteredState = stateClone.filter(function(e) {
 			return e.date !== key
 		})
@@ -93,7 +92,6 @@ export default class AppointmentListScreen extends React.Component {
 							uncheckedIcon="clear"
 							uncheckedColor="red"
 							size={30}
-							//fant ikke en bedre mate enn inline css for ønsket visualisering
 							containerStyle={{ alignItems: 'flex-end' }}
       				textStyle={{ flex: 1, flexDirection: 'column', alignSelf: 'center', fontSize: 20 }}
 							onIconPress={() => this.removeOnPress(item.date)}
@@ -118,7 +116,6 @@ export default class AppointmentListScreen extends React.Component {
 const styles = StyleSheet.create({
 	appointmentListContainer: {
 		flex: 1,
-		backgroundColor: '#fff',
 		alignItems: 'center',
 		justifyContent: 'center',
 	},
