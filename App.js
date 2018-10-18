@@ -1,18 +1,90 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import {Button, Text} from 'react-native-elements';
+import ContactScreen from './components/Contact/ContactScreen.js';
+import ContactListScreen from './components/ContactList/ContactListScreen.js';
+import CreateContactScreen from './components/Contact/CreateContactScreen.js';
 import AppointmentListScreen from './components/Appointments/AppointmentListScreen.js';
 import AppointmentScreen from './components/Appointments/AppointmentScreen.js';
 import CreateAppointmentScreen from './components/Appointments/CreateAppointmentScreen.js';
+import TodoScreen from './components/Todo.js';
+import StepCounter from './components/StepCounter.js';
 import { createStackNavigator } from 'react-navigation';
+
+class HomeScreen extends React.Component {
+  //Sets the title for HomeScreen
+  static navigationOptions = {
+    title: 'Home',
+  };
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <Text h1>PIMM</Text>
+        <View style={styles.buttonContainer}>
+          <Button
+            buttonStyle={styles.butt}
+            large
+            rounded
+            title="Avtaler"
+            onPress={() => this.props.navigation.navigate('AppointmentList')}
+          />
+          <Button
+            buttonStyle={styles.butt}
+            large
+            rounded
+            title="Todo"
+            onPress={() => this.props.navigation.navigate('Todo')}
+          />
+          <Button
+            buttonStyle={styles.butt}
+            large
+            rounded
+            title="Skritteller"
+            onPress={() => this.props.navigation.navigate('Skritteller')}
+          />
+          <Button
+            buttonStyle={styles.butt}
+            large
+            rounded
+            title="Kontakter"
+            onPress={() => this.props.navigation.navigate('ContactList')}
+          />
+        </View>
+      </View>
+    );
+  }
+}
+
+const styles = StyleSheet.create({
+  container: {
+    paddingTop: 24,
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+  },
+  butt: {
+    backgroundColor: '#4286f4',
+    width: '100%',
+    marginTop: 10,
+  },
+});
 
 const RootStack = createStackNavigator(
   {
+    Home: HomeScreen,
+    Todo: TodoScreen,
+    Skritteller: StepCounter,
+    ContactList: ContactListScreen,
+    CreateContact: CreateContactScreen,
+    Contact: ContactScreen,
     AppointmentList: AppointmentListScreen,
     CreateAppointment: CreateAppointmentScreen,
     Appointment: AppointmentScreen,
   },
   {
-    initialRouteName: 'AppointmentList',
+    initialRouteName: 'Home',
     //Styling for all headers unless overridden
     navigationOptions: {
       headerStyle: {
@@ -26,20 +98,8 @@ const RootStack = createStackNavigator(
   }
 );
 
-
 export default class App extends React.Component {
   render() {
-    return (
-    	//Rootstack for "scener"
-      <RootStack />
-    );
+    return <RootStack />;
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    paddingTop: 24,
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-});
