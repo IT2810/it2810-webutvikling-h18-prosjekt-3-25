@@ -7,7 +7,7 @@ import ReducedContactForm from './ReducedContactForm'
 export default class ContactList extends React.Component {
     //Her settes tittelen som brukes i navigasjonsbaren
     static navigationOptions = {
-        title: "ContactList",
+        title: "Contacts",
     }
 
     constructor(props) {

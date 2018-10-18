@@ -5,7 +5,7 @@ import { Icon, CheckBox, } from 'react-native-elements';
 export default class AppointmentListScreen extends React.Component {
 	//tittel til navigasjonsbaren
 	static navigationOptions = {
-		title: "AppointmentList",
+		title: "Appointments",
 	}
 
 	constructor(props){
@@ -53,7 +53,7 @@ export default class AppointmentListScreen extends React.Component {
 		//stateClone.splice(key, 0);
 		let alteredState = stateClone.filter(function(e) {
 			return e.date !== key
-		}) 
+		})
 		this.storeData(alteredState);
 		this.setState(state => ({
 			appointments: alteredState,
@@ -80,13 +80,13 @@ export default class AppointmentListScreen extends React.Component {
 	render() {
 		return (
 			<View style={styles.appointmentListContainer}>
-				
+
 				<View style= {styles.listContainer}>
 					<Text style={styles.title} >Appointments and Events</Text>
 					<FlatList
 						data={this.state.appointments}
 						keyExtractor={(item, index) => item.date}
-						renderItem={({item}) => 
+						renderItem={({item}) =>
 							<CheckBox title={item.header}  onPress={() => this.props.navigation.navigate("Appointment", {header: item.header, date: item.date, description: item.description })}
 							iconRight
 							iconType="material"
@@ -142,4 +142,3 @@ const styles = StyleSheet.create({
 		borderBottomColor:'#87cefa',
 	}
 });
-

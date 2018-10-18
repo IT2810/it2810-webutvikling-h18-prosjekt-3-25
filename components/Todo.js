@@ -2,8 +2,6 @@ import React from 'react';
 import { StyleSheet, FlatList, View, AsyncStorage, ScrollView} from 'react-native';
 import {Button, Text, CheckBox, FormLabel, FormInput, FormValidationMessage} from 'react-native-elements';
 
-//CLEAR INPUT NOT WORKING? THROWS NO ERRORS......
-
 export default class TodoScreen extends React.Component {
   constructor(props) {
     super(props);

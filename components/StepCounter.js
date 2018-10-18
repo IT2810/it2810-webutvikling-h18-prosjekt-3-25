@@ -6,7 +6,7 @@ import {Button, Text, Slider} from 'react-native-elements';
 export default class StepCounter extends React.Component {
 
   static navigationOptions = {
-    title: 'Skritteller',
+    title: 'Step Counter',
   };
   //Skjelett-koden for å få skrittelleren til å fungere er hentet fra:
   //https://docs.expo.io/versions/v30.0.0/sdk/pedometer
@@ -20,7 +20,6 @@ export default class StepCounter extends React.Component {
     };
   }
 
-
   componentDidMount() {
     this._subscribe();
   }
@@ -29,13 +28,15 @@ export default class StepCounter extends React.Component {
     this._unsubscribe();
   }
 
+  //Starts communication with the built in pedometer
   _subscribe = () => {
+    //Counts steps in real time and updates currentStepCount
     this._subscription = Pedometer.watchStepCount(result => {
       this.setState({
         currentStepCount: result.steps
       });
     });
-
+    //Checks if the app can reach the built in pedometer
     Pedometer.isAvailableAsync().then(
       result => {
         this.setState({
@@ -49,7 +50,7 @@ export default class StepCounter extends React.Component {
         });
       }
     );
-
+    //Extracts steps counted the last 24 hours and saves it to pastStepCount
     const end = new Date();
     const start = new Date();
     start.setDate(end.getDate() - 1);
@@ -66,6 +67,7 @@ export default class StepCounter extends React.Component {
     );
   };
 
+  //Ends communication with the pedometer
   _unsubscribe = () => {
     this._subscription && this._subscription.remove();
     this._subscription = null;
@@ -92,6 +94,7 @@ export default class StepCounter extends React.Component {
       return "Steg de siste 24 timene: " + steps;
     }
   }
+
   render() {
     return (
       <View style={styles.container}>
