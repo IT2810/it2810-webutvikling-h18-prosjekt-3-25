@@ -62,7 +62,6 @@ export default class AppointmentListScreen extends React.Component {
 
 	//Handterer fjerning av data fra AsyncStorage og FlatList
 	removeOnPress(keyex) {
-		this.state.date
 		this.removeData(keyex);
 		this.retrieveData();
 	}
@@ -95,7 +94,7 @@ export default class AppointmentListScreen extends React.Component {
 							size={30}
 							//fant ikke en bedre mate enn inline css for ønsket visualisering
 							containerStyle={{ alignItems: 'flex-end' }}
-      				textStyle={{ flex: 1, flexDirection: 'column', alignSelf: 'center', fontSize: 20 }}
+      						textStyle={{ flex: 1, flexDirection: 'column', alignSelf: 'center', fontSize: 20 }}
 							onIconPress={() => this.removeOnPress(item.date)}
 							/>
 						}
