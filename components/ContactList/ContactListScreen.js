@@ -7,33 +7,33 @@ import ReducedContactForm from './ReducedContactForm'
 export default class ContactList extends React.Component {
     //Her settes tittelen som brukes i navigasjonsbaren
     static navigationOptions = {
-        title: "ContactList",
+        title: "Contacts",
     }
 
     constructor(props) {
         super(props);
-
         this.state = {
             contacts: this.retrieveData(),
         };
 
         this.handleOnPress = this.handleOnPress.bind(this);
-
-
     }
 
     // Henter kontakt-dataen som er lagret ved AsyncStorage og oppdaterer state
     async retrieveData() {
         try {
             const value = await AsyncStorage.getItem("CONTACTS");
-            if (value !== null) {
+            if (value !== undefined) {
                 const parsedValue = JSON.parse(value);
                 this.setState(state => ({contacts: parsedValue}));
+                return parsedValue;
             } else {
                 this.setState(state => ({contacts: []}));
+                return [];
             }
         } catch(error) {
             console.log(error);
+            return []
         }
     }
 
@@ -90,7 +90,6 @@ const styles = StyleSheet.create({
     },
 
     addContact: {
-        // flex: 1,
         alignItems: "flex-end",
     },
 

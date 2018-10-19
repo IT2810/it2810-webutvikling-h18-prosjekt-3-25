@@ -5,7 +5,7 @@ import { Avatar, Icon } from 'react-native-elements';
 export default class ReducedContactForm extends React.Component {
     render() {
         return (
-            //TouchableNativeFeedback gjør elementet trykkbart og lager effekten
+            //TouchableHighlight gjør elementet trykkbart og lager effekten
             //man ser når man trykker på det
             <TouchableHighlight onPress={this.props.onPress}>
                 <View style={styles.contactFormContainer}>

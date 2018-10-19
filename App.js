@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import {Button, Text} from 'react-native-elements';
+//Imports for navigation
 import ContactScreen from './components/Contact/ContactScreen.js';
 import ContactListScreen from './components/ContactList/ContactListScreen.js';
 import CreateContactScreen from './components/Contact/CreateContactScreen.js';
@@ -26,7 +27,7 @@ class HomeScreen extends React.Component {
             buttonStyle={styles.butt}
             large
             rounded
-            title="Avtaler"
+            title="Appointments"
             onPress={() => this.props.navigation.navigate('AppointmentList')}
           />
           <Button
@@ -40,14 +41,14 @@ class HomeScreen extends React.Component {
             buttonStyle={styles.butt}
             large
             rounded
-            title="Skritteller"
+            title="Step Counter"
             onPress={() => this.props.navigation.navigate('Skritteller')}
           />
           <Button
             buttonStyle={styles.butt}
             large
             rounded
-            title="Kontakter"
+            title="Contacts"
             onPress={() => this.props.navigation.navigate('ContactList')}
           />
         </View>
@@ -60,7 +61,6 @@ const styles = StyleSheet.create({
   container: {
     paddingTop: 24,
     flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'space-around',
   },
@@ -71,7 +71,9 @@ const styles = StyleSheet.create({
   },
 });
 
+
 const RootStack = createStackNavigator(
+  //Defines how to reach each "page" using navigation.navigate
   {
     Home: HomeScreen,
     Todo: TodoScreen,
@@ -84,6 +86,7 @@ const RootStack = createStackNavigator(
     Appointment: AppointmentScreen,
   },
   {
+    //Sets the "root" page for navigation
     initialRouteName: 'Home',
     //Styling for all headers unless overridden
     navigationOptions: {
@@ -98,6 +101,7 @@ const RootStack = createStackNavigator(
   }
 );
 
+//Exports the rootstack/stackNavigator
 export default class App extends React.Component {
   render() {
     return <RootStack />;
