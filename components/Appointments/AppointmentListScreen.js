@@ -22,16 +22,19 @@ export default class AppointmentListScreen extends React.Component {
 	async retrieveData() {
 		try {
 			const value = await AsyncStorage.getItem("APPOINTMENTS");
-			if (value !== null) {
+			if (value !== undefined) {
 				const parsedValue = JSON.parse(value);
 				this.setState(state => ({appointments: parsedValue}));
+				return parsedValue;
 			}
 			else {
 				this.setState(state => ({appointments: []}));
+				return [];
 			}
 		}
 		catch(error) {
 			console.log(error);
+			return [];
 		}
 	}
 
@@ -49,7 +52,9 @@ export default class AppointmentListScreen extends React.Component {
 	//fjerner valgt appointment, oppdaterer state og asyncstorage til ny liste appointments
 	//en appointment kan ikke vare på samme dato og tidspunkt er en forutsetning for denne losningen
 	async removeData(key) {
-		let stateClone = this.state.appointments;
+    
+		let stateClone = [...this.state.appointments];
+
 		let alteredState = stateClone.filter(function(e) {
 			return e.date !== key
 		})
@@ -61,7 +66,6 @@ export default class AppointmentListScreen extends React.Component {
 
 	//Handterer fjerning av data fra AsyncStorage og FlatList
 	removeOnPress(keyex) {
-		this.state.date
 		this.removeData(keyex);
 		this.retrieveData();
 	}
@@ -93,7 +97,7 @@ export default class AppointmentListScreen extends React.Component {
 							uncheckedColor="red"
 							size={30}
 							containerStyle={{ alignItems: 'flex-end' }}
-      				textStyle={{ flex: 1, flexDirection: 'column', alignSelf: 'center', fontSize: 20 }}
+      						textStyle={{ flex: 1, flexDirection: 'column', alignSelf: 'center', fontSize: 20 }}
 							onIconPress={() => this.removeOnPress(item.date)}
 							/>
 						}

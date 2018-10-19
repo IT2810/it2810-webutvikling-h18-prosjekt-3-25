@@ -43,7 +43,6 @@ export default class CreateAppointmentScreen extends React.Component {
 	handleOnPress() {
 		if (this.state.header!="" && this.state.date!=""){
 
-
 			const appointment = {
 				header: this.state.header,
 				date: this.state.date,
