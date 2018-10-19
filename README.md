@@ -45,7 +45,7 @@ Installasjon: *npm install moment --save*
 Link: https://momentjs.com/
 
 #### mock-async-storage
-Bibliotek som mocker AsyncStorage for Jest-tester slik at vi slipper å gjøre det selv. Til bruk anbefales det å gjøre en "manual mock".
+Bibliotek som mocker AsyncStorage for Jest-tester slik at vi slipper å gjøre det selv. Til bruk anbefales det å gjøre en "manual mock". I testfilene som tester AsyncStorage ligger det en kodesnutt som er hentet fra den vedlagte linken. Denne snutten setter opp testfilen til å bruke mock-implementasjonen som følger med biblioteket. Filene er kommenterte hvert sted dette er relevant.
 
 Installasjon: *npm install --save mock-async-storage*
 
