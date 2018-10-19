@@ -5,6 +5,10 @@ import ContactList from '../../components/ContactList/ContactListScreen.js';
 import renderer from 'react-test-renderer';
 import ShallowRenderer from 'react-test-renderer/shallow';
 
+
+// Dette er en kodesnutt fra https://www.npmjs.com/package/mock-async-storage
+// Her brukes 'mock-async-storage'-biblioteket til å håndtere, som navnet antyder,
+// mockingen av AsyncStorage.
 const mock = () => {
     const mockImpl = new MockAsynctorage();
     jest.mock('AsyncStorage', () => mockImpl)
@@ -26,12 +30,13 @@ afterEach(() => {
     AsyncStorage.removeItem("CONTACTS");
 })
 
+// Tester at siden rendres riktig.
 it('renders correctly', () => {
     tree = renderedComponent.toJSON();
     expect(tree).toMatchSnapshot();
 });
 
-
+// Her testes storeData-funksjonen som bruker AsyncStorage for å lagre kontakter.
 it('StoreData works correctly with one contact', () => {
     expect.assertions(1);
     return componentInstance.storeData(contact).then(() => {
@@ -41,6 +46,7 @@ it('StoreData works correctly with one contact', () => {
     })
 });
 
+// Her testes RetreiveData-funksjonen når det finnes én kontakt.
 it('RetrieveData works correctly with one contact', () => {
     expect.assertions(1);
     return componentInstance.storeData(contact).then(() => {
@@ -50,6 +56,7 @@ it('RetrieveData works correctly with one contact', () => {
     })
 })
 
+// Her testes RetreiveData-funksjonen når det ikke finnes kontakter.
 it('RetrieveData works correctly with no contacts', () => {
     expect.assertions(1);
         return componentInstance.retrieveData().then(data => {

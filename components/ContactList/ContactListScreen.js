@@ -12,16 +12,11 @@ export default class ContactList extends React.Component {
 
     constructor(props) {
         super(props);
-
-        // const data = this.retrieveData();
-
         this.state = {
             contacts: this.retrieveData(),
         };
 
         this.handleOnPress = this.handleOnPress.bind(this);
-
-
     }
 
     // Henter kontakt-dataen som er lagret ved AsyncStorage og oppdaterer state
@@ -95,7 +90,6 @@ const styles = StyleSheet.create({
     },
 
     addContact: {
-        // flex: 1,
         alignItems: "flex-end",
     },
 
