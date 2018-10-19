@@ -24,7 +24,7 @@ export default class CreateAppointmentScreen extends React.Component {
 		this.showDateTimePicker = this.showDateTimePicker.bind(this);
 		this.hideDateTimePicker = this.hideDateTimePicker.bind(this);
 	};
-	
+
 	showDateTimePicker() {
 		this.setState({isDateTimePickerVisible: true });
 	}
@@ -74,7 +74,7 @@ export default class CreateAppointmentScreen extends React.Component {
 
 					<FormLabel>Description</FormLabel>
 					<FormInput onChangeText={(text) => this.setState(state => ({description: text}))}/>
-					
+
 					<View style={styles.button}>
 						<Button
 							title="Select Date"

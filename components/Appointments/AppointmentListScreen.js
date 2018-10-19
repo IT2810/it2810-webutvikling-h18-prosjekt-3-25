@@ -5,7 +5,7 @@ import { Icon, CheckBox, } from 'react-native-elements';
 export default class AppointmentListScreen extends React.Component {
 	//tittel til navigasjonsbaren
 	static navigationOptions = {
-		title: "AppointmentList",
+		title: "Appointments",
 	}
 
 	constructor(props){
@@ -50,10 +50,9 @@ export default class AppointmentListScreen extends React.Component {
 	//en appointment kan ikke vare på samme dato og tidspunkt er en forutsetning for denne losningen
 	async removeData(key) {
 		let stateClone = this.state.appointments;
-		//stateClone.splice(key, 0);
 		let alteredState = stateClone.filter(function(e) {
 			return e.date !== key
-		}) 
+		})
 		this.storeData(alteredState);
 		this.setState(state => ({
 			appointments: alteredState,
@@ -80,20 +79,19 @@ export default class AppointmentListScreen extends React.Component {
 	render() {
 		return (
 			<View style={styles.appointmentListContainer}>
-				
+
 				<View style= {styles.listContainer}>
 					<Text style={styles.title} >Appointments and Events</Text>
 					<FlatList
 						data={this.state.appointments}
 						keyExtractor={(item, index) => item.date}
-						renderItem={({item}) => 
+						renderItem={({item}) =>
 							<CheckBox title={item.header}  onPress={() => this.props.navigation.navigate("Appointment", {header: item.header, date: item.date, description: item.description })}
 							iconRight
 							iconType="material"
 							uncheckedIcon="clear"
 							uncheckedColor="red"
 							size={30}
-							//fant ikke en bedre mate enn inline css for ønsket visualisering
 							containerStyle={{ alignItems: 'flex-end' }}
       				textStyle={{ flex: 1, flexDirection: 'column', alignSelf: 'center', fontSize: 20 }}
 							onIconPress={() => this.removeOnPress(item.date)}
@@ -105,7 +103,7 @@ export default class AppointmentListScreen extends React.Component {
 					<Icon
 						name="add"
 						reverse={true}
-						color="#517fa4"
+						color="#4286f4"
 						size={50}
 						onPress={() => this.props.navigation.navigate("CreateAppointment", {onPress: this.handleOnPress})}
 					/>
@@ -118,7 +116,6 @@ export default class AppointmentListScreen extends React.Component {
 const styles = StyleSheet.create({
 	appointmentListContainer: {
 		flex: 1,
-		backgroundColor: '#fff',
 		alignItems: 'center',
 		justifyContent: 'center',
 	},
@@ -142,4 +139,3 @@ const styles = StyleSheet.create({
 		borderBottomColor:'#87cefa',
 	}
 });
-

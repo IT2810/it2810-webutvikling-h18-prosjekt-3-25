@@ -1,12 +1,12 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, AsyncStorage } from 'react-native';
 import { Pedometer } from "expo";
-import {Button, Text, Slider} from 'react-native-elements';
+import {Button, Text, Slider, FormLabel, FormInput, FormValidationMessage} from 'react-native-elements';
 
 export default class StepCounter extends React.Component {
 
   static navigationOptions = {
-    title: 'Skritteller',
+    title: 'Step Counter',
   };
   //Skjelett-koden for å få skrittelleren til å fungere er hentet fra:
   //https://docs.expo.io/versions/v30.0.0/sdk/pedometer
@@ -17,25 +17,39 @@ export default class StepCounter extends React.Component {
       isPedometerAvailable: "checking",
       pastStepCount: 0,
       currentStepCount: 0,
+      stepGoal: 10000,
+      errorMessage: "",
+      input: "",
     };
   }
 
-
-  componentDidMount() {
+  componentDidMount = async () => {
     this._subscribe();
+    //Fetches eventual old daily stepgoal
+    try {
+      newStepGoal = await AsyncStorage.getItem('stepGoal') || 'none';
+    } catch (error) {
+      console.log(error.message);
+    }
+    if (newStepGoal !== 'none') {
+      newStepGoal = parseInt(newStepGoal);
+      this.setState({stepGoal: newStepGoal});
+    }
   }
 
   componentWillUnmount() {
     this._unsubscribe();
   }
 
+  //Starts communication with the built in pedometer
   _subscribe = () => {
+    //Counts steps in real time and updates currentStepCount
     this._subscription = Pedometer.watchStepCount(result => {
       this.setState({
         currentStepCount: result.steps
       });
     });
-
+    //Checks if the app can reach the built in pedometer
     Pedometer.isAvailableAsync().then(
       result => {
         this.setState({
@@ -49,7 +63,7 @@ export default class StepCounter extends React.Component {
         });
       }
     );
-
+    //Extracts steps counted the last 24 hours and saves it to pastStepCount
     const end = new Date();
     const start = new Date();
     start.setDate(end.getDate() - 1);
@@ -66,16 +80,17 @@ export default class StepCounter extends React.Component {
     );
   };
 
+  //Ends communication with the pedometer
   _unsubscribe = () => {
     this._subscription && this._subscription.remove();
     this._subscription = null;
   };
 
-  //Helper method for transforming steps into a rating between 0 and 5
+  //Helper method for transforming steps into a rating between 0 and 10
   stepsToRating = () => {
-    let rating = (this.state.pastStepCount+this.state.currentStepCount)/2000;
-    if (rating > 5) {
-      return 5;
+    let rating = (this.state.pastStepCount+this.state.currentStepCount)/this.state.stepGoal*10;
+    if (rating > 10) {
+      return 10;
     }
     else if (rating > 0) {
       return rating;
@@ -89,28 +104,68 @@ export default class StepCounter extends React.Component {
     }
     else {
       let steps = this.state.pastStepCount + this.state.currentStepCount;
-      return "Steg de siste 24 timene: " + steps;
+      return "Steps taken last 24 hours: " + steps + "\n" + "Daily goal: " + this.state.stepGoal;
     }
   }
+
+  //Updates the personal step goal
+  setGoal = async () => {
+    let newGoal = this.state.input.trim();
+    newGoal = parseInt(newGoal);
+    //Is it not a number or just empty?
+    if (isNaN(newGoal) || newGoal.length < 1) {
+      this.setState({errorMessage: "Please enter a number"})
+      this.formInput.shake();
+    }
+    //It is a number
+    else {
+      //Clears the FormInput
+      this.setState({input: ""});
+      //Resets errormessage
+      this.setState({errorMessage: ""})
+      //Saves to AsyncStorage
+      try {
+        await AsyncStorage.setItem('stepGoal', newGoal.toString());
+      } catch (error) {
+        console.log(error.message);
+      }
+      this.setState({stepGoal: newGoal});
+    }
+  }
+
   render() {
     return (
-      <View style={styles.container}>
-        <Text h3 style={styles.text}>Dagens mål:</Text>
-        <Slider
-          style={styles.slider}
-          value={this.stepsToRating()}
-          maximumValue={5}
-          disabled
-        />
-        <Text style={styles.text}>{this.getText()}</Text>
+      <View>
+        <View style={styles.margin}>
+          <Text h3 style={styles.text}>Daily goal</Text>
+          <Slider
+            style={styles.slider}
+            value={this.stepsToRating()}
+            maximumValue={10}
+            disabled
+          />
+          <Text style={styles.text}>{this.getText()}</Text>
+        </View>
+        <View style={styles.margin}>
+          <FormLabel>Set daily goal</FormLabel>
+          <FormInput
+            ref={ref => this.formInput = ref}
+            onChangeText={(text) => this.setState({input: text})}
+            placeholder="Eg. 8000"
+            value={this.state.input}
+            onSubmitEditing={this.setGoal}
+          />
+          <FormValidationMessage>{this.state.errorMessage}</FormValidationMessage>
+          <Button title="Ok" onPress={this.setGoal} buttonStyle={styles.butt} />
+        </View>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-
+  margin: {
+    marginTop: '10%'
   },
   slider: {
     width: '80%',
@@ -118,5 +173,8 @@ const styles = StyleSheet.create({
   },
   text: {
     alignSelf: 'center'
+  },
+  butt: {
+    backgroundColor: '#4286f4'
   }
 });

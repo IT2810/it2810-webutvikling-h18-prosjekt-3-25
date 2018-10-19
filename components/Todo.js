@@ -2,8 +2,6 @@ import React from 'react';
 import { StyleSheet, FlatList, View, AsyncStorage, ScrollView} from 'react-native';
 import {Button, Text, CheckBox, FormLabel, FormInput, FormValidationMessage} from 'react-native-elements';
 
-//CLEAR INPUT NOT WORKING? THROWS NO ERRORS......
-
 export default class TodoScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -24,8 +22,7 @@ export default class TodoScreen extends React.Component {
     try {
       oldTasks = await AsyncStorage.getItem('taskArray') || 'none';
     } catch (error) {
-    // Error retrieving data
-    console.log(error.message);
+      console.log(error.message);
     }
     if (oldTasks !== 'none') {
       oldTasks = JSON.parse(oldTasks);
@@ -113,7 +110,7 @@ export default class TodoScreen extends React.Component {
       );
     }
     else {
-      return (<Text>No Tasks</Text>);
+      return (<Text style={styles.noTasks}>No Tasks</Text>);
     }
   }
 
@@ -131,9 +128,20 @@ export default class TodoScreen extends React.Component {
           onSubmitEditing={this.addTask}
         />
         <FormValidationMessage>{this.state.errorMessage}</FormValidationMessage>
-        <Button title="Ok" onPress={this.addTask} />
+        <Button title="Ok" onPress={this.addTask} buttonStyle={styles.butt} />
         {this.renderCheckBoxes()}
       </ScrollView>
     )
   }
 }
+
+const styles = StyleSheet.create({
+  butt: {
+    backgroundColor: '#4286f4'
+  },
+  noTasks: {
+    alignSelf: 'center',
+    marginTop: '10%',
+    fontSize: '16'
+  }
+});
