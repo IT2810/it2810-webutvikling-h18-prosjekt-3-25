@@ -142,6 +142,6 @@ const styles = StyleSheet.create({
   noTasks: {
     alignSelf: 'center',
     marginTop: '10%',
-    fontSize: '16'
+    fontSize: 16
   }
 });
