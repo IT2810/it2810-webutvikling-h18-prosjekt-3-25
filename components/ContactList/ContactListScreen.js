@@ -22,8 +22,8 @@ export default class ContactList extends React.Component {
     // Henter kontakt-dataen som er lagret ved AsyncStorage og oppdaterer state
     async retrieveData() {
         try {
-            const value = await AsyncStorage.getItem("CONTACTS");
-            if (value !== undefined) {
+            const value = await AsyncStorage.getItem("CONTACTS") || "none";
+            if (value !== "none") {
                 const parsedValue = JSON.parse(value);
                 this.setState(state => ({contacts: parsedValue}));
                 return parsedValue;

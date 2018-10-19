@@ -21,8 +21,8 @@ export default class AppointmentListScreen extends React.Component {
 	//henter appointments som er lagret med AsyncStorage og oppdaterer state
 	async retrieveData() {
 		try {
-			const value = await AsyncStorage.getItem("APPOINTMENTS");
-			if (value !== undefined) {
+			const value = await AsyncStorage.getItem("APPOINTMENTS") || "none";
+			if (value !== "none") {
 				const parsedValue = JSON.parse(value);
 				this.setState(state => ({appointments: parsedValue}));
 				return parsedValue;
