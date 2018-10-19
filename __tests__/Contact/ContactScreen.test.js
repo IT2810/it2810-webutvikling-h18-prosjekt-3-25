@@ -3,21 +3,12 @@ import Contact from '../../components/Contact/ContactScreen.js';
 import renderer from 'react-test-renderer';
 import ShallowRenderer from 'react-test-renderer/shallow';
 
-// const navigation = { getParam: jest.fn(("name") => "Test Person") };
-// const mockName = jest.fn((navigation.getParam("name")) => "Test Person");
-// navigation.setParam("name")="Test Person";
-// jest.mock("react-navigation", () => {});
+// Trengs for å la Contact mota props, siden disse blir sendt med ract-navigation.
+const navigation = {getParam: jest.fn(() => {
+    return "test Person";
+})}
 
-// it("renders correctly", () => {
-//     const renderer = new ShallowRenderer();
-//     renderer.render(<Contact />);
-//     const result = renderer.getRenderOutput();
-//     console.log(result);
-//
-// })
-
-//Na testen her kan ferra te helvete :)
-// it("renders correctly", () => {
-//     const tree = renderer.create(<Contact />).toJSON();
-//     expect(tree).toMatchSnapshot();
-// })
+it("renders correctly", () => {
+    const tree = renderer.create(<Contact navigation={navigation} />).toJSON();
+    expect(tree).toMatchSnapshot();
+})
