@@ -22,16 +22,19 @@ export default class AppointmentListScreen extends React.Component {
 	async retrieveData() {
 		try {
 			const value = await AsyncStorage.getItem("APPOINTMENTS");
-			if (value !== null) {
+			if (value !== undefined) {
 				const parsedValue = JSON.parse(value);
 				this.setState(state => ({appointments: parsedValue}));
+				return parsedValue;
 			}
 			else {
 				this.setState(state => ({appointments: []}));
+				return [];
 			}
 		}
 		catch(error) {
 			console.log(error);
+			return [];
 		}
 	}
 
@@ -49,8 +52,7 @@ export default class AppointmentListScreen extends React.Component {
 	//fjerner valgt appointment, oppdaterer state og asyncstorage til ny liste appointments
 	//en appointment kan ikke vare på samme dato og tidspunkt er en forutsetning for denne losningen
 	async removeData(key) {
-		let stateClone = this.state.appointments;
-		//stateClone.splice(key, 0);
+		let stateClone = [...this.state.appointments];
 		let alteredState = stateClone.filter(function(e) {
 			return e.date !== key
 		}) 
