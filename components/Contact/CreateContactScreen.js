@@ -40,6 +40,8 @@ export default class CreateContact extends React.Component {
 
     render() {
         return (
+            // KeyboardAvoidingView gjør at skjermbildet tilpasser seg det digitale
+            // tastaturet
             <KeyboardAvoidingView style={styles.createContactContainer} behaivor="padding" >
                 <View style={styles.icon}>
                     <Icon
