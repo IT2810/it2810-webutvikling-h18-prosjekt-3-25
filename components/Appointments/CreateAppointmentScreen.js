@@ -77,13 +77,13 @@ export default class CreateAppointmentScreen extends React.Component {
 					<View style={styles.button}>
 						<Button
 							title="Select Date"
-							backgroundColor="#51afaa"
+							backgroundColor="#4286f4"
 							onPress={this.showDateTimePicker}
 						/>
 					</View>
 
 					<View style={styles.text}>
-						<Text style={{color: '#51afaa'}}> Selected Datetime: {this.state.date} </Text>
+						<Text> Selected Datetime: {this.state.date} </Text>
 					</View>
 				</View>
 
@@ -92,7 +92,7 @@ export default class CreateAppointmentScreen extends React.Component {
 						name="check"
 						reverse={true}
 						size={50}
-						color="#51afaa"
+						color="#4286f4"
 						onPress={this.handleOnPress}
 					/>
 				</View>
